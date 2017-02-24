@@ -21,7 +21,7 @@ namespace C0reExternalBase_v2
         public static IntPtr m_pWindowHandle;
         public static IntPtr m_pForeGroundWindow;
 
-        public static int m_ScreenWidth;
-        public static int m_ScreenHeight;
+        public static int m_iScreenWidth;
+        public static int m_iScreenHeight;
     }
 }

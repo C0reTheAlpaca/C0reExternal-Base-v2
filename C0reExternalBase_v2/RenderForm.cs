@@ -1,18 +1,29 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows.Forms;
 using SlimDX.Direct3D9;
+using System.Threading;
+using System.Diagnostics;
+using System.Windows.Forms;
+using C0reExternalBase_v2.Threads;
+using System.Runtime.InteropServices;
 using static System.Math;
+using static C0reExternalBase_v2.Memory;
 using static C0reExternalBase_v2.OverlayHelper;
-using static C0reExternalBase_v2.RenderHelper;
+using static C0reExternalBase_v2.Structs.Entitys;
+using static C0reExternalBase_v2.Variables.Offsets;
+using static C0reExternalBase_v2.Structs.Entitys.Entity;
+
+/// <summary>
+/// SORRY FOR THE HUNGARIAN NOTATION ;P C0re
+/// </summary>
 
 namespace C0reExternalBase_v2
 {
     public partial class RenderForm : Form
     {
+        public RenderHelper m_Screen;
+        public RenderHelper m_Render;
+
         // Retarded TOPMOST fix
         protected override bool ShowWithoutActivation
         {
@@ -35,38 +46,14 @@ namespace C0reExternalBase_v2
         public RenderForm()
         {
             InitializeComponent();
-            SetWindowLong(Handle, GWL_EXSTYLE, (IntPtr)(GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED ^ WS_EX_TRANSPARENT));
-            SetLayeredWindowAttributes(Handle, 0, 255, LWA_ALPHA);
-
-            var r = new Rectangle();
-
-            foreach (var s in Screen.AllScreens)
-                r = Rectangle.Union(r, s.Bounds);
-
-            Top = r.Top;
-            Left = r.Left;
-            Width = r.Width;
-            Height = r.Height;
-
-            m_ScreenWidth = r.Width;
-            m_ScreenHeight = r.Height;
-
-            var PresentParams = new PresentParameters();
-            PresentParams.Windowed = true;
-            PresentParams.SwapEffect = SwapEffect.Discard;
-            PresentParams.BackBufferFormat = Format.A8R8G8B8;
-            PresentParams.BackBufferWidth = Width;
-            PresentParams.BackBufferHeight = Height;
-            PresentParams.Multisample = MultisampleType.EightSamples;
-
-            m_D3D = new Direct3D();
-            m_Device = new Device(m_D3D, 0, DeviceType.Hardware, Handle, CreateFlags.HardwareVertexProcessing, PresentParams);
-            m_Screen = new Render(m_Device, -Left, -Top);
-            m_Render = new Render(m_Device);
+            PrepareRender();
+            PrepareMemory();
+            StartThreads();
         }
 
         public void RenderFrame()
         {
+            // Save Time of Frame Start
             m_dtFrameTimeStart = DateTime.Now;
 
             // Clears Last Frame & Starts A New
@@ -84,32 +71,101 @@ namespace C0reExternalBase_v2
             {
                 m_WindowRectangle = GetWindowRect(m_pWindowHandle);
 
-                m_Render.DrawShadowText("C0re - ExternalBase v2", m_WindowRectangle.Width / 2 - m_Screen.MeasureString("C0re - ExternalBase v2").Width / 2, 0, Color.Gold, 2);
-                m_Screen.DrawFilledCircle(420, 420, 200, Color.Fuchsia);
-                m_Screen.DrawCircle(420, 420, 200, 70, Color.Gold);
+                // Iterate Through All Entitys
+                for (var i = 0; i < 64; i++)
+                {
+
+                    // Check If Our Entity Is Valid
+                    if (Arrays.Entity[i].m_iBase == 0)
+                        continue;
+                    if (Arrays.Entity[i].m_iBase == LocalPlayer.m_iBase)
+                        continue;
+                    if (Arrays.Entity[i].m_iHealth < 1)
+                        continue;
+                    if (Arrays.Entity[i].m_iDormant == 1)
+                        continue;
+
+                    // Sets Team Colors
+                    Color color;
+                    if (Arrays.Entity[i].m_iTeam != LocalPlayer.m_iTeam) {
+                        color = Color.FromArgb(255, 255, 0, 0); } else {
+                        color = Color.FromArgb(255, 0, 255, 255); }
+
+                    // Renders An ESP-Box
+                    m_Render.DrawESPBox(i, color, m_WindowRectangle);
+
+                    // Renders Snaplines
+                    m_Render.DrawSnaplines(i, Color.FromArgb(255, 170, 170, 170), m_WindowRectangle);
+                }
             }
 
             // End Frame
             m_Device.EndScene();
             m_Device.Present();
 
+            // Save Time of Frame End
             m_dtFrameTimeEnd = DateTime.Now;
 
             // Limit Amount of Rendered FPS to 50
             Thread.Sleep(Max(1000 / 50 - (int)(m_dtFrameTimeEnd - m_dtFrameTimeStart).TotalMilliseconds, 0));
         }
 
+        private void PrepareRender()
+        {
+            SetWindowLong(Handle, GWL_EXSTYLE, (IntPtr)(GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED ^ WS_EX_TRANSPARENT));
+            SetLayeredWindowAttributes(Handle, 0, 255, LWA_ALPHA);
+
+            var r = new Rectangle();
+
+            foreach (var s in Screen.AllScreens)
+                r = Rectangle.Union(r, s.Bounds);
+
+            Top = r.Top;
+            Left = r.Left;
+            Width = r.Width;
+            Height = r.Height;
+
+            m_iScreenWidth = r.Width;
+            m_iScreenHeight = r.Height;
+
+            var PresentParams = new PresentParameters();
+            PresentParams.Windowed = true;
+            PresentParams.SwapEffect = SwapEffect.Discard;
+            PresentParams.BackBufferFormat = Format.A8R8G8B8;
+            PresentParams.BackBufferWidth = Width;
+            PresentParams.BackBufferHeight = Height;
+            PresentParams.Multisample = MultisampleType.EightSamples;
+
+            m_D3D = new Direct3D();
+            m_Device = new Device(m_D3D, 0, DeviceType.Hardware, Handle, CreateFlags.HardwareVertexProcessing, PresentParams);
+            m_Screen = new RenderHelper(m_Device, -Left, -Top);
+            m_Render = new RenderHelper(m_Device);
+        }
+
+        private void PrepareMemory()
+        {
+            ManageMemory.Initialize("csgo");
+            m_ClientPointer = ManageMemory.GetModuleAdress("client");
+            m_EnginePointer = ManageMemory.GetModuleAdress("engine");
+
+            for (var i = 0; i < 64; i++)
+                Arrays.Entity[i] = new Entity();
+        }
+
+        private void StartThreads()
+        {
+            Update Update = new Update();
+            Thread Updater = new Thread(Update.Read);
+            Updater.Start();
+        }
+
         private IntPtr GetWindowHandle()
         {
             var processes = Process.GetProcessesByName("csgo");
             if (processes.Length > 0)
-            {
                 return processes[0].MainWindowHandle;
-            }
             else
-            {
                 return (IntPtr)null;
-            }
         }
 
         public void OverlayForm_Paint(object sender, PaintEventArgs e)
@@ -128,7 +184,7 @@ namespace C0reExternalBase_v2
             DwmExtendFrameIntoClientArea(Handle, ref m_Margin);
         }
 
-        public static Rectangle GetWindowRect(IntPtr handle)
+        private static Rectangle GetWindowRect(IntPtr handle)
         {
             Rect rect;
             GetClientRect(handle, out rect);
