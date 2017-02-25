@@ -1,11 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.ComponentModel;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters.Binary;
-using C0reExternalBase_v2.Structs;
 
 namespace C0reExternalBase_v2
 {
@@ -15,7 +11,9 @@ namespace C0reExternalBase_v2
         {
             public static Process m_Process;
             public static IntPtr m_pProcessHandle;
+
             public static int m_iNumberOfBytesRead = 0;
+            public static int m_iNumberOfBytesWritten = 0;
 
             public static void Initialize(string ProcessName)
             {
@@ -28,7 +26,7 @@ namespace C0reExternalBase_v2
                     MessageBox.Show("Couldn't find Counter-Strike. Please start it first!", "Process not found!", MessageBoxButtons.OK);
                     Environment.Exit(1);
                 }
-                m_pProcessHandle = OpenProcess(PROCESS_WM_READ, false, m_Process.Id); // Sets Our ProcessHandle
+                m_pProcessHandle = OpenProcess(PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE, false, m_Process.Id); // Sets Our ProcessHandle
             }
 
             public static int GetModuleAdress(string ModuleName)
@@ -68,6 +66,13 @@ namespace C0reExternalBase_v2
                 return ConvertToFloatArray(buffer); // Transform the ByteArray to A Float Array (PseudoMatrix ;P)
             }
 
+            public static void WriteMemory<T>(int Adress, object Value) where T : struct
+            {
+                byte[] buffer = StructureToByteArray(Value); // Transform Data To ByteArray 
+
+                WriteProcessMemory((int)m_pProcessHandle, Adress, buffer, buffer.Length, out m_iNumberOfBytesWritten);
+            }
+
             #region Transformation
             public static float[] ConvertToFloatArray(byte[] bytes)
             {
@@ -75,10 +80,9 @@ namespace C0reExternalBase_v2
                     throw new ArgumentException();
 
                 float[] floats = new float[bytes.Length / 4];
+
                 for (int i = 0; i < floats.Length; i++)
-                {
                     floats[i] = BitConverter.ToSingle(bytes, i * 4);
-                }
 
                 return floats;
             }
@@ -95,21 +99,40 @@ namespace C0reExternalBase_v2
                     handle.Free();
                 }
             }
+
+            private static byte[] StructureToByteArray(object obj)
+            {
+                int len = Marshal.SizeOf(obj);
+
+                byte[] arr = new byte[len];
+
+                IntPtr ptr = Marshal.AllocHGlobal(len);
+
+                Marshal.StructureToPtr(obj, ptr, true);
+                Marshal.Copy(ptr, arr, 0, len);
+                Marshal.FreeHGlobal(ptr);
+
+                return arr;
+            }
             #endregion
 
             #region DllImports
 
             [DllImport("kernel32.dll")]
-            public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+            private static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
             [DllImport("kernel32.dll")]
-            public static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
+            private static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] buffer, int size, ref int lpNumberOfBytesRead);
 
+            [DllImport("kernel32.dll")]
+            private static extern bool WriteProcessMemory(int hProcess, int lpBaseAddress, byte[] buffer, int size, out int lpNumberOfBytesWritten);
             #endregion
 
             #region Constants
 
-            const int PROCESS_WM_READ = 0x0010;
+            const int PROCESS_VM_OPERATION = 0x0008;
+            const int PROCESS_VM_READ = 0x0010;
+            const int PROCESS_VM_WRITE = 0x0020;
 
             #endregion
         }

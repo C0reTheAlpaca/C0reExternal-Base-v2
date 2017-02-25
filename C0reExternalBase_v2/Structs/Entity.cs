@@ -18,7 +18,7 @@
             {
                 public static Entity[] Entity = new Entity[64];
             }
-        }
+        };
 
         public struct LocalPlayer
         {
@@ -32,6 +32,6 @@
             {
                 public static float[] ViewMatrix = new float[16];
             }
-        }
+        };
     }
 }

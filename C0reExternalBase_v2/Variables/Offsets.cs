@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace C0reExternalBase_v2.Variables
+﻿namespace C0reExternalBase_v2.Variables
 {
     class Offsets
     {
@@ -16,6 +10,7 @@ namespace C0reExternalBase_v2.Variables
         public static int m_dwGlowObject = 0x04FE39FC;
         public static int m_dwEntityList = 0x04AC9154;
         public static int m_dwViewMatrix = 0x04ABACF4;
+        public static int m_dwForceJump = 0x04F5FCFC;
         public static int m_iGlowIndex = 0x0000A320;
         public static int m_vecOrigin = 0x00000134;
         public static int m_lifeState = 0x0000025B;

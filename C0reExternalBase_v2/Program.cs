@@ -1,8 +1,5 @@
 ﻿using SlimDX.Windows;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace C0reExternalBase_v2

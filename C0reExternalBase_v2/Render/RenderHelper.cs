@@ -25,13 +25,14 @@ namespace C0reExternalBase_v2
             this.shiftX = shiftX;
             this.shiftY = shiftY;
             line = new D3D.Line(device);
-            fonts = new D3D.Font[3];
+            fonts = new D3D.Font[4];
             fonts[0] = new D3D.Font(device, new Font("Dotum", 8, FontStyle.Regular));
-            fonts[1] = new D3D.Font(device, new Font("Calibri", 8, FontStyle.Regular));
+            fonts[1] = new D3D.Font(device, new Font("Calibri", 10, FontStyle.Regular));
             fonts[2] = new D3D.Font(device, new Font("Tahoma", 9, FontStyle.Regular));
+            fonts[3] = new D3D.Font(device, new Font("Calibri", 16, FontStyle.Regular));
         }
 
-        // Update Overlay Shifting (Unused ATM)
+        // Update Overlay Shifting
         public void UpdateShift(int shiftX, int shiftY)
         {
             this.shiftX = shiftX;
@@ -64,11 +65,17 @@ namespace C0reExternalBase_v2
         }
 
         // Draws String
-        public void DrawText(string text, int x, int y, Color4 color, int font = 0)
+        public void DrawText(string text, bool Centered, float x, float y, Color4 color, int font = 0)
         {
+            if (Centered)
+            {
+                int width = MeasureString(text, font).Width;
+                x -= width / 2;
+            }
+
             x += shiftX;
             y += shiftY;
-            fonts[font].DrawString(null, text, x, y, color);
+            fonts[font].DrawString(null, text, (int)x, (int)y, color);
         }
 
         // Draws Circle
@@ -216,6 +223,7 @@ namespace C0reExternalBase_v2
             DrawShadowedLine(TransformedOrigin.x - Height / 4, TransformedOrigin.y, TransformedOrigin.x + Height / 4, TransformedOrigin.y, 1, color);
         }
 
+        // Draws Snaplines
         public void DrawSnaplines(int EntityID, Color color, Rectangle m_WindowRectangle)
         {
             Vector3D TransformedOrigin;

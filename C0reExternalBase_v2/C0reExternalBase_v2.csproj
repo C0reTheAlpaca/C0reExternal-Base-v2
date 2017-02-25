@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
@@ -51,12 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Math\Transformation.cs" />
+    <Compile Include="Menu\CheatMenu.cs" />
     <Compile Include="RenderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RenderForm.Designer.cs">
       <DependentUpon>RenderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Structs\Menu.cs" />
     <Compile Include="Structs\Vector.cs" />
     <Compile Include="Overlay\OverlayHelper.cs" />
     <Compile Include="Program.cs" />
@@ -64,7 +69,9 @@
     <Compile Include="Render\RenderHelper.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Structs\Entity.cs" />
+    <Compile Include="Threads\Bunnyhop.cs" />
     <Compile Include="Threads\Update.cs" />
+    <Compile Include="Utility\Hotkeys.cs" />
     <Compile Include="Variables\Offsets.cs" />
     <EmbeddedResource Include="RenderForm.resx">
       <DependentUpon>RenderForm.cs</DependentUpon>
@@ -78,6 +85,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -90,7 +100,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,11 +5,14 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using C0reExternalBase_v2.Threads;
+using C0reExternalBase_v2.Utility;
 using System.Runtime.InteropServices;
 using static System.Math;
 using static C0reExternalBase_v2.Memory;
 using static C0reExternalBase_v2.OverlayHelper;
+using static C0reExternalBase_v2.Menu.CheatMenu;
 using static C0reExternalBase_v2.Structs.Entitys;
+using static C0reExternalBase_v2.Structs.CheatMenu;
 using static C0reExternalBase_v2.Variables.Offsets;
 using static C0reExternalBase_v2.Structs.Entitys.Entity;
 
@@ -46,6 +49,8 @@ namespace C0reExternalBase_v2
         public RenderForm()
         {
             InitializeComponent();
+            Hotkeys.SetHook();
+            InitializeMenu();
             PrepareRender();
             PrepareMemory();
             StartThreads();
@@ -60,16 +65,23 @@ namespace C0reExternalBase_v2
             m_Device.Clear(ClearFlags.Target, Color.FromArgb(0, 0, 0, 0), 1.0f, 0);
             m_Device.BeginScene();
 
-            // Get Handle Of CS's Window
+            // Get Handle Of Games Window
             m_pWindowHandle = GetWindowHandle();
 
             // Get Handle Of ForeGroundWindow
             m_pForeGroundWindow = GetForegroundWindow();
 
-            // Check If CS:GO Or Our Overlay Are In Front
+            // Check If The Game Or Our Overlay Are In Front
             if (m_pWindowHandle == m_pForeGroundWindow || Handle == m_pForeGroundWindow)
             {
+                // Get Size Of The Games Window
                 m_WindowRectangle = GetWindowRect(m_pWindowHandle);
+
+                // Update Menu Shifting
+                m_Render.UpdateShift(-Left + m_WindowRectangle.X, -Top + m_WindowRectangle.Y);
+
+                // Render Menu
+                MenuRun(m_Render);
 
                 // Iterate Through All Entitys
                 for (var i = 0; i < 64; i++)
@@ -85,17 +97,22 @@ namespace C0reExternalBase_v2
                     if (Arrays.Entity[i].m_iDormant == 1)
                         continue;
 
+                    int test = Arrays.Entity[i].m_iTeam;
+                    int test2 = LocalPlayer.m_iTeam;
+
                     // Sets Team Colors
                     Color color;
                     if (Arrays.Entity[i].m_iTeam != LocalPlayer.m_iTeam) {
                         color = Color.FromArgb(255, 255, 0, 0); } else {
-                        color = Color.FromArgb(255, 0, 255, 255); }
+                        color = Color.FromArgb(255, 0, 255, 0); }
 
                     // Renders An ESP-Box
-                    m_Render.DrawESPBox(i, color, m_WindowRectangle);
+                    if(Settings.m_bESP)
+                        m_Render.DrawESPBox(i, color, m_WindowRectangle);
 
                     // Renders Snaplines
-                    m_Render.DrawSnaplines(i, Color.FromArgb(255, 170, 170, 170), m_WindowRectangle);
+                    if (Settings.m_bSnaplines)
+                        m_Render.DrawSnaplines(i, Color.FromArgb(255, 170, 170, 170), m_WindowRectangle);
                 }
             }
 
@@ -157,6 +174,10 @@ namespace C0reExternalBase_v2
             Update Update = new Update();
             Thread Updater = new Thread(Update.Read);
             Updater.Start();
+
+            Bunnyhop Bunnyhop = new Bunnyhop();
+            Thread Hopper = new Thread(Bunnyhop.Jump);
+            Hopper.Start();
         }
 
         private IntPtr GetWindowHandle()
