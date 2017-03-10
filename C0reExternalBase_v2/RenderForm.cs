@@ -97,9 +97,6 @@ namespace C0reExternalBase_v2
                     if (Arrays.Entity[i].m_iDormant == 1)
                         continue;
 
-                    int test = Arrays.Entity[i].m_iTeam;
-                    int test2 = LocalPlayer.m_iTeam;
-
                     // Sets Team Colors
                     Color color;
                     if (Arrays.Entity[i].m_iTeam != LocalPlayer.m_iTeam) {
