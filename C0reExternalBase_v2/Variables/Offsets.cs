@@ -5,12 +5,12 @@
         public static int m_ClientPointer;
         public static int m_EnginePointer;
 
-        public static int m_dwLocalPlayer = 0x00AA66D4;
-        public static int m_dwClientState = 0x005CA514;
-        public static int m_dwGlowObject = 0x04FE39FC;
-        public static int m_dwEntityList = 0x04AC9154;
-        public static int m_dwViewMatrix = 0x04ABACF4;
-        public static int m_dwForceJump = 0x04F5FCFC;
+        public static int m_dwLocalPlayer = 0x00AB06EC;
+        public static int m_dwClientState = 0x005CC524;
+        public static int m_dwGlowObject = 0x04FEE5AC;
+        public static int m_dwEntityList = 0x04AD3A64;
+        public static int m_dwViewMatrix = 0x04AC5604;
+        public static int m_dwForceJump = 0x04F6A684;
         public static int m_iGlowIndex = 0x0000A320;
         public static int m_vecOrigin = 0x00000134;
         public static int m_lifeState = 0x0000025B;
