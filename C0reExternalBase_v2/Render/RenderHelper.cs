@@ -6,6 +6,7 @@ using D3D = SlimDX.Direct3D9;
 using C0reExternalBase_v2.Math;
 using C0reExternalBase_v2.Structs;
 using static System.Math;
+using static C0reExternalBase_v2.Menu.CheatMenu;
 using static C0reExternalBase_v2.Structs.Entitys.Entity;
 
 namespace C0reExternalBase_v2

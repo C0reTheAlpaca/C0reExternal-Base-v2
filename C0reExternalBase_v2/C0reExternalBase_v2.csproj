@@ -70,6 +70,7 @@
     <Compile Include="Memory.cs" />
     <Compile Include="Structs\Entity.cs" />
     <Compile Include="Threads\Bunnyhop.cs" />
+    <Compile Include="Threads\Triggerbot.cs" />
     <Compile Include="Threads\Update.cs" />
     <Compile Include="Utility\Hotkeys.cs" />
     <Compile Include="Variables\Offsets.cs" />

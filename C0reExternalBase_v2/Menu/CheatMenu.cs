@@ -13,7 +13,7 @@ namespace C0reExternalBase_v2.Menu
         {
             // Define Item Names Here
             string[] ItemNames = new string[] {
-                "Box", "Snaplines", "BunnyHop"
+                "ESP", "Snaplines", "BunnyHop", "TriggerBot"
             };
 
             // Get The Total Number Of Items
@@ -38,6 +38,7 @@ namespace C0reExternalBase_v2.Menu
             Settings.m_bESP = Arrays.ItemList[0].m_bIsActive;
             Settings.m_bSnaplines = Arrays.ItemList[1].m_bIsActive;
             Settings.m_bBunnyhop = Arrays.ItemList[2].m_bIsActive;
+            Settings.m_bTriggerbot = Arrays.ItemList[3].m_bIsActive;
         }
 
         private static void RenderMenu(RenderHelper Render)
@@ -48,7 +49,7 @@ namespace C0reExternalBase_v2.Menu
             m_Size = new Vector2D(250, m_iNumberOfItems * m_iItemHeight + 20);
 
             // Draw Menu Background
-            Render.DrawText("C0reBase | External v2", true, m_Position.x + m_Size.x / 2, m_Position.y - 30, Color.LawnGreen, 3);
+            Render.DrawText("C0reBase | External v2.1", true, m_Position.x + m_Size.x / 2, m_Position.y - 30, Color.LawnGreen, 3);
             Render.DrawFilledBox(m_Position.x, m_Position.y, m_Size.x, m_Size.y, Color.FromArgb(255, 27, 27, 27));
             Render.DrawBox(m_Position.x, m_Position.y, m_Size.x, m_Size.y, 1, Color.Black);
 

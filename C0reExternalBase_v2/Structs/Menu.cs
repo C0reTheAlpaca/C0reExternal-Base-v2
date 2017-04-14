@@ -14,13 +14,6 @@ namespace C0reExternalBase_v2.Structs
             public static Vector2D m_Size;
         };
 
-        public struct Settings
-        {
-            public static bool m_bESP;
-            public static bool m_bSnaplines;
-            public static bool m_bBunnyhop;
-        };
-
         public struct Item
         {
             public int m_ControlType; // For Later Use
@@ -32,6 +25,14 @@ namespace C0reExternalBase_v2.Structs
             {
                 public static Item[] ItemList = new Item[50];
             }
+        };
+
+        public struct Settings
+        {
+            public static bool m_bESP;
+            public static bool m_bSnaplines;
+            public static bool m_bBunnyhop;
+            public static bool m_bTriggerbot;
         };
     }
 }

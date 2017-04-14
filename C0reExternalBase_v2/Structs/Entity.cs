@@ -4,6 +4,7 @@
     {
         public struct Entity
         {
+            public int m_iID;
             public int m_iBase;
             public int m_iDormant;
             public int m_iHealth;

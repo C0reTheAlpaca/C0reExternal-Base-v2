@@ -175,6 +175,10 @@ namespace C0reExternalBase_v2
             Bunnyhop Bunnyhop = new Bunnyhop();
             Thread Hopper = new Thread(Bunnyhop.Jump);
             Hopper.Start();
+
+            Triggerbot Triggerbot = new Triggerbot();
+            Thread Trigger = new Thread(Triggerbot.Trigger);
+            Trigger.Start();
         }
 
         private IntPtr GetWindowHandle()
