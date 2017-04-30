@@ -99,7 +99,7 @@ namespace C0reExternalBase_v2
                     if (Arrays.Entity[i].m_iHealth < 1)
                         continue;
                     if (Arrays.Entity[i].m_iDormant == 1)
-                        continue;
+                         continue;
 
                     // Sets Team Colors
                     Color color = Arrays.Entity[i].m_iTeam != LocalPlayer.m_iTeam ? 
