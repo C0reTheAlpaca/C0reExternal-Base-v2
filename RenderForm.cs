@@ -185,6 +185,10 @@ namespace C0reExternalBase_v2
             Triggerbot Triggerbot = new Triggerbot();
             Thread Trigger = new Thread(Triggerbot.Trigger);
             Trigger.Start();
+
+            Skinchanger Skinchanger = new Skinchanger();
+            Thread Skins = new Thread(Skinchanger.Reskin);
+            Skins.Start();
         }
 
         private IntPtr GetWindowHandle()

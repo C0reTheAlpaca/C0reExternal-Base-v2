@@ -15,8 +15,9 @@ namespace C0reExternalBase_v2.Utility
         public static bool KEY_ALT_STATE;
 
         // Key Codes
-        private enum KeyCodeConstants
+        public enum KeyCodeConstants
         {
+            NULL = 0,
             ALT = 164,
             SPACEBAR = 32,
             ARROW_LEFT = 37,

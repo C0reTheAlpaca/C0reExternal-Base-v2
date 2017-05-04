@@ -9,24 +9,19 @@ namespace C0reExternalBase_v2.Menu
 {
     class CheatMenu
     {
+        public static Item[] Items = new Item[] {
+            new Item { m_sName = "ESP", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = true},
+            new Item { m_sName = "Snaplines", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
+            new Item { m_sName = "Radar", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
+            new Item { m_sName = "BunnyHop", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
+            new Item { m_sName = "TriggerBot", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
+            new Item { m_sName = "Skinchanger", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
+        };
+
         public static void InitializeMenu()
         {
-            // Define Item Names Here
-            string[] ItemNames = new string[] {
-                "ESP", "Snaplines", "Radar", "BunnyHop", "TriggerBot"
-            };
-
             // Get The Total Number Of Items
-            m_iNumberOfItems = ItemNames.Length;
-
-            // Iterate Through All Items And Set Their Names
-            for (int i = 0; i < m_iNumberOfItems; i++)
-            {
-                if (i == 0)
-                    Arrays.ItemList[i].m_bIsHovered = true;
-
-                Arrays.ItemList[i].m_sName = ItemNames[i];
-            }
+            m_iNumberOfItems = Items.Length;
         }
 
         public static void MenuRun(Renderer Render)
@@ -35,11 +30,12 @@ namespace C0reExternalBase_v2.Menu
             Navigation();
 
             // Set Setting Vars
-            Settings.m_bESP = Arrays.ItemList[0].m_bIsActive;
-            Settings.m_bSnaplines = Arrays.ItemList[1].m_bIsActive;
-            Settings.m_bRadar = Arrays.ItemList[2].m_bIsActive;
-            Settings.m_bBunnyhop = Arrays.ItemList[3].m_bIsActive;
-            Settings.m_bTriggerbot = Arrays.ItemList[4].m_bIsActive;
+            Settings.m_bESP = Items[0].m_bIsActive;
+            Settings.m_bSnaplines = Items[1].m_bIsActive;
+            Settings.m_bRadar = Items[2].m_bIsActive;
+            Settings.m_bBunnyhop = Items[3].m_bIsActive;
+            Settings.m_bTriggerbot = Items[4].m_bIsActive;
+            Settings.m_bSkinchanger = Items[5].m_bIsActive;
         }
 
         private static void RenderMenu(Renderer Render)
@@ -50,14 +46,14 @@ namespace C0reExternalBase_v2.Menu
             m_Size = new Vector2D(300, m_iNumberOfItems * m_iItemHeight + 20);
 
             // Draw Menu Background
-            Render.DrawText("C0reBase | External v2.2", true, m_Position.x + m_Size.x / 2, m_Position.y - 30, Color.LawnGreen, 3);
+            Render.DrawText("C0reBase | External v2.3", true, m_Position.x + m_Size.x / 2, m_Position.y - 30, Color.LawnGreen, 3);
             Render.DrawFilledBox(m_Position.x, m_Position.y, m_Size.x, m_Size.y, Color.FromArgb(255, 27, 27, 27));
             Render.DrawBox(m_Position.x, m_Position.y, m_Size.x, m_Size.y, 1, Color.Black);
 
             // Iterate Through All Menu Items
             for (int i = 0; i < m_iNumberOfItems; i++)
             {
-                Item CurrentItem = Arrays.ItemList[i];
+                Item CurrentItem = Items[i];
 
                 Color ColorText;
                 if (CurrentItem.m_bIsActive)
@@ -82,39 +78,63 @@ namespace C0reExternalBase_v2.Menu
         {
             // Navigation Bullshit (Yep Its Ugly AF I Was Lazy Here ;p )
 
-            if (KEY_ARROW_UP_STATE && m_LastPressedNavigationKey != "ArrowUp")
+            if (KEY_ARROW_UP_STATE && m_LastPressedNavigationKey != KeyCodeConstants.ARROW_UP)
             {
                 if (m_iSelector - 1 >= 0)
                 {
                     m_iSelector -= 1;
-                    Arrays.ItemList[m_iSelector].m_bIsHovered = true;
+                    Items[m_iSelector].m_bIsHovered = true;
                 }
-                m_LastPressedNavigationKey = "ArrowUp";
+                m_LastPressedNavigationKey = KeyCodeConstants.ARROW_UP;
             }
-            else if (!KEY_ARROW_UP_STATE && m_LastPressedNavigationKey == "ArrowUp")
-                m_LastPressedNavigationKey = "NULL";
+            else if (!KEY_ARROW_UP_STATE && m_LastPressedNavigationKey == KeyCodeConstants.ARROW_UP)
+            {
+                m_LastPressedNavigationKey = KeyCodeConstants.NULL;
+            }
 
-            if (KEY_ARROW_DOWN_STATE && m_LastPressedNavigationKey != "ArrowDown") {
-                if (m_iSelector + 1 < m_iNumberOfItems) {
+            if (KEY_ARROW_DOWN_STATE && m_LastPressedNavigationKey != KeyCodeConstants.ARROW_DOWN)
+            {
+                if (m_iSelector + 1 < m_iNumberOfItems)
+                {
                     m_iSelector += 1;
-                    Arrays.ItemList[m_iSelector].m_bIsHovered = true;
+                    Items[m_iSelector].m_bIsHovered = true;
                 }
-                m_LastPressedNavigationKey = "ArrowDown";
+                m_LastPressedNavigationKey = KeyCodeConstants.ARROW_DOWN;
             }
-            else if (!KEY_ARROW_DOWN_STATE && m_LastPressedNavigationKey == "ArrowDown")
-                m_LastPressedNavigationKey = "NULL";
+            else if (!KEY_ARROW_DOWN_STATE && m_LastPressedNavigationKey == KeyCodeConstants.ARROW_DOWN)
+            {
+                m_LastPressedNavigationKey = KeyCodeConstants.NULL;
+            }
 
             if (KEY_ARROW_LEFT_STATE)
-                Arrays.ItemList[m_iSelector].m_bIsActive = false;
+            {
+                if (Items[m_iSelector].m_sControlType == "Switch")
+                {
+                    Items[m_iSelector].m_bIsActive = false;
+                }
+                else if (Items[m_iSelector].m_sControlType == "Select")
+                {
+                    // TODO
+                }
+            }
 
             if (KEY_ARROW_RIGHT_STATE)
-                Arrays.ItemList[m_iSelector].m_bIsActive = true;
+            {
+                if (Items[m_iSelector].m_sControlType == "Switch")
+                {
+                    Items[m_iSelector].m_bIsActive = true;
+                }
+                else if (Items[m_iSelector].m_sControlType == "Select")
+                {
+                    // TODO
+                }
+            }
 
             // Set All Other Items To NotHovered (Todo: FIX THIS!!!)
             for (int i = 0; i < m_iNumberOfItems; i++)
             {
                 if (i != m_iSelector)
-                    Arrays.ItemList[i].m_bIsHovered = false;
+                    Items[i].m_bIsHovered = false;
             }
         }
     }

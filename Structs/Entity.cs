@@ -21,6 +21,14 @@
             }
         };
 
+        public struct Weapon
+        {
+            public int m_iBase;
+            public int m_iXuIDLow;
+            public int m_iTexture;
+            public int m_iItemDefinitionIndex;
+        };
+
         public struct LocalPlayer
         {
             public static int m_iBase;

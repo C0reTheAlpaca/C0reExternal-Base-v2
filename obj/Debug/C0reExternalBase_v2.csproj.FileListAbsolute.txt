@@ -1,0 +1,9 @@
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\bin\Debug\C0reExternalBase_v2.exe.config
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\bin\Debug\C0reExternalBase_v2.exe
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\bin\Debug\C0reExternalBase_v2.pdb
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\obj\Debug\C0reExternalBase_v2.csprojResolveAssemblyReference.cache
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\obj\Debug\C0reExternalBase_v2.RenderForm.resources
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\obj\Debug\C0reExternalBase_v2.Properties.Resources.resources
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\obj\Debug\C0reExternalBase_v2.csproj.GenerateResource.Cache
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\obj\Debug\C0reExternalBase_v2.exe
+C:\Users\Crypt3x\Desktop\C0reExternal-Base-v2-master\obj\Debug\C0reExternalBase_v2.pdb

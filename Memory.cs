@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -66,9 +67,16 @@ namespace C0reExternalBase_v2
                 return ConvertToFloatArray(buffer); // Transform the ByteArray to A Float Array (PseudoMatrix ;P)
             }
 
-            public static void WriteMemory<T>(int Adress, object Value) where T : struct
+            public static void WriteMemory<T>(int Adress, object Value)
             {
                 byte[] buffer = StructureToByteArray(Value); // Transform Data To ByteArray 
+
+                WriteProcessMemory((int)m_pProcessHandle, Adress, buffer, buffer.Length, out m_iNumberOfBytesWritten);
+            }
+
+            public static void WriteMemory<T>(int Adress, char[] Value)
+            {
+                byte[] buffer = Encoding.UTF8.GetBytes(Value);
 
                 WriteProcessMemory((int)m_pProcessHandle, Adress, buffer, buffer.Length, out m_iNumberOfBytesWritten);
             }

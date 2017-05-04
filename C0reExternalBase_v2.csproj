@@ -71,10 +71,12 @@
     <Compile Include="Memory.cs" />
     <Compile Include="Structs\Entity.cs" />
     <Compile Include="Threads\Bunnyhop.cs" />
+    <Compile Include="Threads\Skinchanger.cs" />
     <Compile Include="Threads\Triggerbot.cs" />
     <Compile Include="Threads\Update.cs" />
     <Compile Include="Utility\Hotkeys.cs" />
     <Compile Include="Math\Maths.cs" />
+    <Compile Include="Utility\ItemDefinition.cs" />
     <Compile Include="Variables\Offsets.cs" />
     <EmbeddedResource Include="RenderForm.resx">
       <DependentUpon>RenderForm.cs</DependentUpon>

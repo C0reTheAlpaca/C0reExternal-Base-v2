@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C0reExternalBase_v2", "C0reExternalBase_v2\C0reExternalBase_v2.csproj", "{EECA3E05-9C2C-40A9-B9AC-E7C76221602F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C0reExternalBase_v2", "C0reExternalBase_v2.csproj", "{EECA3E05-9C2C-40A9-B9AC-E7C76221602F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

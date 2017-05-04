@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+﻿using static C0reExternalBase_v2.Utility.Hotkeys;
 
 namespace C0reExternalBase_v2.Structs
 {
@@ -6,25 +6,27 @@ namespace C0reExternalBase_v2.Structs
     {
         public struct Menu
         {
-            public static string m_LastPressedNavigationKey;
             public static int m_iItemHeight;
             public static int m_iSelector = 0;
             public static int m_iNumberOfItems;
             public static Vector2D m_Position;
             public static Vector2D m_Size;
+            public static KeyCodeConstants m_LastPressedNavigationKey;
         };
 
         public struct Item
         {
-            public int m_ControlType; // For Later Use
+            public string m_sName;
+            public string m_sControlType;
             public bool m_bIsActive;
             public bool m_bIsHovered;
-            public string m_sName;
+            public Select[] ItemList;
+        };
 
-            internal class Arrays
-            {
-                public static Item[] ItemList = new Item[50];
-            }
+        public struct Select
+        {
+            public string m_sName;
+            public int m_iValue;
         };
 
         public struct Settings
@@ -34,6 +36,7 @@ namespace C0reExternalBase_v2.Structs
             public static bool m_bRadar;
             public static bool m_bBunnyhop;
             public static bool m_bTriggerbot;
+            public static bool m_bSkinchanger;
 
             internal class Radar
             {
