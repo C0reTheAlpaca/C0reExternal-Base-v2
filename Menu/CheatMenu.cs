@@ -47,7 +47,7 @@ namespace C0reExternalBase_v2.Menu
 
             // Draw Menu Background
             Render.DrawFilledBox(m_Position.x, m_Position.y - 30, m_Size.x, 30, Color.FromArgb(255, 27, 27, 27));
-            Render.DrawText("C0reBase | External v2.3", true, m_Position.x + m_Size.x / 2, m_Position.y - 25, Color.White, 3);
+            Render.DrawText("C0reBase | External v2.4", true, m_Position.x + m_Size.x / 2, m_Position.y - 25, Color.White, 3);
             Render.DrawFilledBox(m_Position.x, m_Position.y, m_Size.x, m_Size.y, Color.FromArgb(255, 27, 27, 27));
             Render.DrawBox(m_Position.x, m_Position.y - 30, m_Size.x, m_Size.y + 30, 1, Color.Black);
 
