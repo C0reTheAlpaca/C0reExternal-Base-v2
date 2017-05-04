@@ -46,9 +46,10 @@ namespace C0reExternalBase_v2.Menu
             m_Size = new Vector2D(300, m_iNumberOfItems * m_iItemHeight + 20);
 
             // Draw Menu Background
-            Render.DrawText("C0reBase | External v2.3", true, m_Position.x + m_Size.x / 2, m_Position.y - 30, Color.LawnGreen, 3);
+            Render.DrawFilledBox(m_Position.x, m_Position.y - 30, m_Size.x, 30, Color.FromArgb(255, 27, 27, 27));
+            Render.DrawText("C0reBase | External v2.3", true, m_Position.x + m_Size.x / 2, m_Position.y - 25, Color.White, 3);
             Render.DrawFilledBox(m_Position.x, m_Position.y, m_Size.x, m_Size.y, Color.FromArgb(255, 27, 27, 27));
-            Render.DrawBox(m_Position.x, m_Position.y, m_Size.x, m_Size.y, 1, Color.Black);
+            Render.DrawBox(m_Position.x, m_Position.y - 30, m_Size.x, m_Size.y + 30, 1, Color.Black);
 
             // Iterate Through All Menu Items
             for (int i = 0; i < m_iNumberOfItems; i++)
@@ -59,7 +60,7 @@ namespace C0reExternalBase_v2.Menu
                 if (CurrentItem.m_bIsActive)
                     ColorText = Color.LawnGreen;
                 else
-                    ColorText = Color.OrangeRed;
+                    ColorText = Color.Red;
 
                 Color ColorBackground;
                 if (CurrentItem.m_bIsHovered)
@@ -69,7 +70,8 @@ namespace C0reExternalBase_v2.Menu
 
                 // Draw The Item
                 Render.DrawFilledBox(m_Position.x + 10, m_Position.y + (i * m_iItemHeight) + 10, m_Size.x - 20, m_iItemHeight, ColorBackground);
-                Render.DrawText(CurrentItem.m_sName, false, m_Position.x + 20, m_Position.y + (i * m_iItemHeight) + 11, ColorText, 1);
+                Render.DrawFilledBox(m_Size.x - 15, m_Position.y + (i * m_iItemHeight) + 15, 7, 7, ColorText); //btn
+                Render.DrawText(CurrentItem.m_sName, false, m_Position.x + 20, m_Position.y + (i * m_iItemHeight) + 11, Color.Gold, 1);
                 Render.DrawBox(m_Position.x + 10, m_Position.y + (i * m_iItemHeight) + 10, m_Size.x - 20, m_iItemHeight, 1, Color.Black);
             }
         }
