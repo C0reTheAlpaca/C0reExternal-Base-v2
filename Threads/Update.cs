@@ -30,7 +30,7 @@ namespace C0reExternalBase_v2.Threads
 
                     Entity.m_iBase = ManageMemory.ReadMemory<int>(Offsets.m_ClientPointer + Offsets.m_dwEntityList + i * 0x10);
 
-                    if (Entity.m_iBase != 0)
+                    if (Entity.m_iBase > 0)
                     {
                         Entity.m_VecOrigin = ManageMemory.ReadMemory<Vector3D>(Entity.m_iBase + Offsets.m_vecOrigin);
                         Entity.m_VecMin = ManageMemory.ReadMemory<Vector3D>(Entity.m_iBase + Offsets.m_vecMins);

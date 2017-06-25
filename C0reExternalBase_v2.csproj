@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,6 +63,7 @@
       <DependentUpon>RenderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Render\Visuals.cs" />
+    <Compile Include="Structs\GlowObject.cs" />
     <Compile Include="Structs\Menu.cs" />
     <Compile Include="Structs\Vector.cs" />
     <Compile Include="Overlay\OverlayHelper.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Memory.cs" />
     <Compile Include="Structs\Entity.cs" />
     <Compile Include="Threads\Bunnyhop.cs" />
+    <Compile Include="Threads\Glow.cs" />
     <Compile Include="Threads\Skinchanger.cs" />
     <Compile Include="Threads\Triggerbot.cs" />
     <Compile Include="Threads\Update.cs" />

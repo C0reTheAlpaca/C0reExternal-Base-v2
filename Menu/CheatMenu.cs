@@ -11,6 +11,7 @@ namespace C0reExternalBase_v2.Menu
     {
         public static Item[] Items = new Item[] {
             new Item { m_sName = "ESP", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = true},
+            new Item { m_sName = "Engine Chams", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
             new Item { m_sName = "Snaplines", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
             new Item { m_sName = "Radar", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
             new Item { m_sName = "BunnyHop", m_sControlType = "Switch", m_bIsActive = false, m_bIsHovered = false},
@@ -31,11 +32,12 @@ namespace C0reExternalBase_v2.Menu
 
             // Set Setting Vars
             Settings.m_bESP = Items[0].m_bIsActive;
-            Settings.m_bSnaplines = Items[1].m_bIsActive;
-            Settings.m_bRadar = Items[2].m_bIsActive;
-            Settings.m_bBunnyhop = Items[3].m_bIsActive;
-            Settings.m_bTriggerbot = Items[4].m_bIsActive;
-            Settings.m_bSkinchanger = Items[5].m_bIsActive;
+            Settings.m_bEngineChams = Items[1].m_bIsActive;
+            Settings.m_bSnaplines = Items[2].m_bIsActive;
+            Settings.m_bRadar = Items[3].m_bIsActive;
+            Settings.m_bBunnyhop = Items[4].m_bIsActive;
+            Settings.m_bTriggerbot = Items[5].m_bIsActive;
+            Settings.m_bSkinchanger = Items[6].m_bIsActive;
         }
 
         private static void RenderMenu(Renderer Render)

@@ -66,7 +66,7 @@ namespace C0reExternalBase_v2
             DotPos.x += RadarPosition.x + RadarSize / 2;
             DotPos.y += RadarPosition.y + RadarSize / 2;
 
-            // Clamp Dots To RadarSize
+            // Clamp Dots To RadarSize ( Where 5 = Width/Height of the Dot)
             if (DotPos.x < RadarPosition.x)
                 DotPos.x = RadarPosition.x;
 

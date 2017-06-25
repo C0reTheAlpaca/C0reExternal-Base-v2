@@ -99,7 +99,7 @@ namespace C0reExternalBase_v2
                     if (Arrays.Entity[i].m_iHealth < 1)
                         continue;
                     if (Arrays.Entity[i].m_iDormant == 1)
-                         continue;
+                        continue;
 
                     // Sets Team Colors
                     Color color = Arrays.Entity[i].m_iTeam != LocalPlayer.m_iTeam ? 
@@ -174,21 +174,20 @@ namespace C0reExternalBase_v2
 
         private void StartThreads()
         {
-            Update Update = new Update();
-            Thread Updater = new Thread(Update.Read);
+            Thread Updater = new Thread(Threads.Update.Read);
             Updater.Start();
 
-            Bunnyhop Bunnyhop = new Bunnyhop();
             Thread Hopper = new Thread(Bunnyhop.Jump);
             Hopper.Start();
 
-            Triggerbot Triggerbot = new Triggerbot();
             Thread Trigger = new Thread(Triggerbot.Trigger);
             Trigger.Start();
 
-            Skinchanger Skinchanger = new Skinchanger();
             Thread Skins = new Thread(Skinchanger.Reskin);
             Skins.Start();
+
+            Thread EngineChams = new Thread(Glow.EngineChams);
+            EngineChams.Start();
         }
 
         private IntPtr GetWindowHandle()

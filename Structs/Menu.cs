@@ -32,6 +32,7 @@ namespace C0reExternalBase_v2.Structs
         public struct Settings
         {
             public static bool m_bESP;
+            public static bool m_bEngineChams;
             public static bool m_bSnaplines;
             public static bool m_bRadar;
             public static bool m_bBunnyhop;
