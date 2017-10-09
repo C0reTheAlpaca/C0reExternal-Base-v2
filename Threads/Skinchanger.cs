@@ -101,14 +101,14 @@ namespace C0reExternalBase_v2.Threads
                             ManageMemory.WriteMemory<char[]>(Weapon.m_iBase + Offsets.m_szCustomName, "C0reExternal".ToCharArray());
 
                             // Force Textures To Reload
-                            ManageMemory.WriteMemory<int>(LocalPlayer.m_iClientState + 0x16C, -1);
+                            ManageMemory.WriteMemory<int>(LocalPlayer.m_iClientState + 0x174, -1);
                         }
                     }
                 }
                 else if (!Settings.m_bSkinchanger && bWasActive)
                 {
                     // If Skinchanger Was Active & Is Now Inactive Force Textures To Reload
-                    ManageMemory.WriteMemory<int>(LocalPlayer.m_iClientState + 0x16C, -1);
+                    ManageMemory.WriteMemory<int>(LocalPlayer.m_iClientState + 0x174, -1);
 
                     bWasActive = false;
                 }
