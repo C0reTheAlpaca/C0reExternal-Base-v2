@@ -19,7 +19,7 @@ namespace C0reExternalBase_v2.Threads
                 LocalPlayer.m_iClientState = ManageMemory.ReadMemory<int>(Offsets.m_EnginePointer + Offsets.m_dwClientState);
                 LocalPlayer.m_iGlowBase = ManageMemory.ReadMemory<int>(Offsets.m_ClientPointer + Offsets.m_dwGlowObject);
                 LocalPlayer.m_iJumpFlags = ManageMemory.ReadMemory<int>(LocalPlayer.m_iBase + Offsets.m_fFlags);
-                LocalPlayer.m_angEyeAngles = ManageMemory.ReadMemory<QAngle>(LocalPlayer.m_iBase + Offsets.m_angEyeAngles);
+                LocalPlayer.m_angEyeAngles = ManageMemory.ReadMemory<QAngle>(LocalPlayer.m_iClientState + Offsets.m_angEyeAngles);
                 LocalPlayer.m_VecOrigin = ManageMemory.ReadMemory<Vector3D>(LocalPlayer.m_iBase + Offsets.m_vecOrigin);
                 LocalPlayer.Arrays.ViewMatrix = ManageMemory.ReadMatrix<float>(Offsets.m_ClientPointer + Offsets.m_dwViewMatrix, 16);
 
